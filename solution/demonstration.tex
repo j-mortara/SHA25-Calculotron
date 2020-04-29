@@ -1,0 +1,77 @@
+\documentclass{article}
+ 
+\usepackage{amsmath}
+\usepackage[top=0cm, bottom=0.5cm]{geometry}
+\usepackage{xfrac}
+
+\title{SHA25 - Problème 11 \\ \Large{Calculotron}}
+\date{}
+\begin{document}
+
+\maketitle
+
+La boucle \texttt{while} de la fonction \texttt{calc\_flag} peut être représentée par la somme suivante :
+\begin{equation}
+   \displaystyle\sum_{d=0}^{c} \frac{b}{a^2-(1+2d)a+d^2+d}
+\end{equation}
+
+\vspace{5mm}
+
+On peut extraire le numérateur de la somme :
+\begin{equation}
+   b\displaystyle\sum_{d=0}^{c} \frac{1}{a^2-(1+2d)a+d^2+d}
+\end{equation}
+
+\vspace{5mm}
+
+En factorisant le dénominateur, on obtient :
+\begin{equation}
+   b\displaystyle\sum_{d=0}^{c} \frac{1}{(a-d)(a-d-1)}
+\end{equation}
+
+\vspace{5mm}
+
+$\frac{1}{(a-d)(a-d-1)}$  est de la forme $\frac{1}{X(X-1)}$ avec $x=a-d$, et peut donc se décomposer ainsi en éléments simples :
+\begin{equation}
+   \frac{1}{X(X-1)} = -\frac{1}{X}+\frac{1}{X-1} \implies \frac{1}{(a-d)(a-d-1)} = \frac{-1}{a-d} + \frac{1}{a-d-1}
+\end{equation}
+
+\vspace{5mm}
+
+La somme devient donc :
+\begin{equation}
+   b\displaystyle\sum_{d=0}^{c} \left(\frac{-1}{a-d} + \frac{1}{a-d-1}\right) = b \left(-\displaystyle\sum_{d=0}^{c} \frac{1}{a-d} + \displaystyle\sum_{d=0}^{c} \frac{1}{a-d-1}\right)
+\end{equation}
+
+\vspace{5mm}
+
+On peut réindicer la deuxième somme :
+\begin{equation}
+   b \left(-\displaystyle\sum_{d=0}^{c} \frac{1}{a-d} + \displaystyle\sum_{d=1}^{c+1} \frac{1}{a-d}\right)
+\end{equation}
+
+\vspace{5mm}
+
+Les deux sommes sont télescopiques : tous les termes de $1$ à $c$ vont s'annuler
+car ils sont présents dans les deux sommes, dans la première avec le signe $-$ et dans la deuxième avec le signe $+$.
+Il reste donc le premier terme de la première somme (pour $d=0$) et le dernier terme de la deuxième (pour $d=c+1$) :
+\begin{equation}
+   b \left(-\frac{1}{a} + \frac{1}{a-c-1}\right)
+\end{equation}
+
+\vspace{5mm}
+
+Finalement :
+\begin{equation}
+   \displaystyle\sum_{d=0}^{c} \frac{b}{a^2-(1+2d)a+d^2+d} = b \left(\frac{1}{a-c-1} - \frac{1}{a}\right)
+\end{equation}
+
+\vspace{5mm}
+
+En ajoutant le terme initial $\sfrac{b}{a}$, on obtient l'expression finale de la fonction \texttt{calc\_flag} :
+
+\begin{equation}
+\frac{b}{a} +  b \left(\frac{1}{a-c-1} - \frac{1}{a}\right)
+\end{equation}
+
+\end{document}
